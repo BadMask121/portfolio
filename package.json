@@ -12,9 +12,14 @@
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
+		"@zeit/next-css": "^1.0.1",
+		"@zeit/next-sass": "^1.0.1",
 		"next": "^9.2.1",
 		"react": "^16.12.0",
-		"react-dom": "^16.12.0"
+		"react-dom": "^16.12.0",
+		"react-spring": "9.0.0-canary.808.17.55c5691",
+		"react-three-fiber": "^4.0.14",
+		"three": "^0.113.2"
 	},
 	"devDependencies": {
 		"@types/node": "^13.7.0",
