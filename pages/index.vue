@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
     <div class="typing-demo text-3xl font-bold underline">
-      Hello, Welcome to Jeffrey Emakpor world
+      Hello, Welcome to Jeffrey Emakpor &#127758;
     </div>
   </div>
 </template>
