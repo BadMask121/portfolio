@@ -6,10 +6,6 @@
 </template>
 
 <script setup lang="ts">
-useHead({
-  title: "Jeffrey Emakpor 🌎",
-});
-
 useSeoMeta({
   title: "Jeffrey Emakpor 🌎",
   ogTitle: "Jeffrey Emakpor 🌎",
