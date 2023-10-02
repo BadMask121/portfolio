@@ -42,7 +42,7 @@ onMounted(() => {
 .typing-demo {
   width: 50ch;
   animation: typing 0s steps(33), blink 0.6s step-end infinite alternate;
-  white-space: pre-wrap;
+  white-space: unset;
   word-break: normal;
   border-right: 3px solid;
   font-family: monospace;
