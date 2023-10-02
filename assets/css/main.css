@@ -1,3 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  /* --hue: 120deg; */
+  --hue: 213deg;
+  --base-bg-sat: 20%;
+  --base-bg-lum: 12%;
+  --base-bg: hsl(var(--hue), var(--base-bg-sat), var(--base-bg-lum));
+  --base-fg-sat: 20%;
+  --base-fg-lum: 30%;
+  --base-fg: hsl(var(--hue), var(--base-fg-sat), var(--base-fg-lum));
+  --filter-fg: saturate(100%) brightness(100%);
+  --module-bg-sat: 18%;
+  --module-bg-lum: 27%;
+  --module-bg: hsl(var(--hue), var(--module-bg-sat), var(--module-bg-lum));
+}
