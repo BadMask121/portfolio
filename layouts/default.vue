@@ -1,7 +1,7 @@
 
 <template>
   <div>
-    <div id="cursor"></div>
+    <div id="cursor"/>
     <slot />
     <footer class="footer">
       <div class="socials">
@@ -25,7 +25,7 @@
         <p>
           <a
             class="icon-attach resume hover-effect"
-            href="https://drive.google.com/file/d/1a9uslkTtWE7vcmXtrLEWq_Wx8vAt-EXI/view"
+            href="https://drive.google.com/file/d/1qFLbIKEoMYxlrAyhKG42bNhj4VWq-KAr/view?usp=sharing"
             target="_blank"
             >&nbsp;Resumè</a
           >

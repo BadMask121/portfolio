@@ -2,7 +2,7 @@
   <div class="wrapper">
     <div class="content">
       <div class="typing-demo">
-        Hey 👋, I am Jeffrey Emakpor, an enterprise software solution architect,
+          Hey &#128075;, I am Jeffrey Emakpor, an enterprise software solution architect,
         digital nomad and Polymath (πολυμαθής)
       </div>
       <p class="globe">
@@ -19,9 +19,9 @@ onMounted(() => {
   if (textElement) {
     const textContent = textElement?.textContent
       ?.split("")
-      .map((text) => `<span class='hover-effect'>${text}</span>`);
+      .map((text) => `<span class='hover-effect'>${text}</span>`)?.join("");
 
-    textElement.innerHTML = textContent?.join("");
+    textElement.innerHTML = textContent;
   }
 });
 </script>
