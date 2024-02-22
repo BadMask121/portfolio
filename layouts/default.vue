@@ -25,7 +25,7 @@
         <p>
           <a
             class="icon-attach resume hover-effect"
-            href="https://drive.google.com/file/d/1kje4knBqLbInlrw8xTfuniJyowIBlHhK/view?usp=sharing"
+            href="https://drive.google.com/file/d/1IpV728yG1ITYuhRKVShiN_gychDjmb_K/view?usp=sharing"
             target="_blank"
             >&nbsp;Resumè</a
           >
