@@ -1,0 +1,10 @@
+.git
+.github
+.nuxt
+.output
+.worktrees
+dist
+docs
+node_modules
+tests
+*.log
