@@ -794,7 +794,7 @@ h1 {
   }
 
   h1 {
-    font-size: clamp(3rem, 15vw, 3.6rem);
+    font-size: clamp(2.7rem, 13vw, 3.2rem);
   }
 
   .hero {
