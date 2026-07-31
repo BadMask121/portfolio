@@ -34,6 +34,12 @@ test('documents local verification and Coolify deployment', async () => {
   assert.match(readme, /jeffrey\.build/)
 })
 
+test('versions browser assets to escape legacy immutable responses', async () => {
+  const markup = await read('../site/index.html')
+  assert.match(markup, /href="\/styles\.css\?v=2"/)
+  assert.match(markup, /src="\/main\.mjs\?v=2"/)
+})
+
 test('defines repeatable Traefik routing on the shared Coolify network', async () => {
   const compose = await read('../compose.production.yml')
   assert.match(compose, /container_name: jeffrey-build-portfolio/)
