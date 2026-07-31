@@ -1,13 +1,11 @@
-# Nuxt dev/build outputs
-.output
-.data
-.nuxt
-.nitro
-.cache
+# Static build output
 dist
+.nuxt
+.output
 
-# Node dependencies
+# Local tooling
 node_modules
+.cache
 
 # Logs
 logs
@@ -22,4 +20,3 @@ logs
 .env
 .env.*
 !.env.example
-.nuxt/*
