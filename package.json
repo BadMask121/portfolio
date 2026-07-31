@@ -3,11 +3,12 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "nuxt build",
-    "dev": "nuxt dev",
+    "build": "node scripts/build.mjs",
+    "dev": "node scripts/dev.mjs",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "test": "node --test tests/*.test.mjs"
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",
