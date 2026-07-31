@@ -1,0 +1,39 @@
+services:
+  portfolio:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: jeffrey-build-portfolio:latest
+    container_name: jeffrey-build-portfolio
+    restart: unless-stopped
+    networks:
+      - coolify
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=coolify"
+      - "traefik.http.middlewares.jeffrey-build-gzip.compress=true"
+      - "traefik.http.middlewares.jeffrey-build-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.middlewares.jeffrey-build-www-redirect.redirectregex.regex=^https://www\\.jeffrey\\.build/(.*)"
+      - "traefik.http.middlewares.jeffrey-build-www-redirect.redirectregex.replacement=https://jeffrey.build/$${1}"
+      - "traefik.http.middlewares.jeffrey-build-www-redirect.redirectregex.permanent=true"
+      - "traefik.http.routers.jeffrey-build-http.entrypoints=http"
+      - "traefik.http.routers.jeffrey-build-http.rule=Host(`jeffrey.build`) || Host(`www.jeffrey.build`)"
+      - "traefik.http.routers.jeffrey-build-http.middlewares=jeffrey-build-https-redirect"
+      - "traefik.http.routers.jeffrey-build-http.service=jeffrey-build"
+      - "traefik.http.routers.jeffrey-build-https.entrypoints=https"
+      - "traefik.http.routers.jeffrey-build-https.rule=Host(`jeffrey.build`)"
+      - "traefik.http.routers.jeffrey-build-https.middlewares=jeffrey-build-gzip"
+      - "traefik.http.routers.jeffrey-build-https.service=jeffrey-build"
+      - "traefik.http.routers.jeffrey-build-https.tls=true"
+      - "traefik.http.routers.jeffrey-build-https.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.jeffrey-build-www.entrypoints=https"
+      - "traefik.http.routers.jeffrey-build-www.rule=Host(`www.jeffrey.build`)"
+      - "traefik.http.routers.jeffrey-build-www.middlewares=jeffrey-build-www-redirect"
+      - "traefik.http.routers.jeffrey-build-www.service=jeffrey-build"
+      - "traefik.http.routers.jeffrey-build-www.tls=true"
+      - "traefik.http.routers.jeffrey-build-www.tls.certresolver=letsencrypt"
+      - "traefik.http.services.jeffrey-build.loadbalancer.server.port=8080"
+
+networks:
+  coolify:
+    external: true

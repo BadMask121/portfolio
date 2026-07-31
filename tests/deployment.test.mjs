@@ -31,3 +31,13 @@ test('documents local verification and Coolify deployment', async () => {
   assert.match(readme, /Coolify/)
   assert.match(readme, /jeffrey\.build/)
 })
+
+test('defines repeatable Traefik routing on the shared Coolify network', async () => {
+  const compose = await read('../compose.production.yml')
+  assert.match(compose, /container_name: jeffrey-build-portfolio/)
+  assert.match(compose, /traefik\.http\.routers\.jeffrey-build-https\.rule=Host\(`jeffrey\.build`\)/)
+  assert.match(compose, /traefik\.http\.routers\.jeffrey-build-www\.rule=Host\(`www\.jeffrey\.build`\)/)
+  assert.match(compose, /traefik\.http\.routers\.jeffrey-build-https\.tls\.certresolver=letsencrypt/)
+  assert.match(compose, /traefik\.http\.services\.jeffrey-build\.loadbalancer\.server\.port=8080/)
+  assert.match(compose, /external: true/)
+})
