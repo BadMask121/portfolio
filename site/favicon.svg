@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">Jeffrey.build terminal mark</title>
+  <rect width="64" height="64" rx="8" fill="#06100c"/>
+  <path d="M14 18h36v28H14z" fill="none" stroke="#8affb5" stroke-width="3"/>
+  <path d="m21 27 7 5-7 5m11 0h11" fill="none" stroke="#eaffef" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter"/>
+</svg>

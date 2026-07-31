@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Jeffrey Emakpor, Senior AI Platform Engineer</title>
+  <desc id="desc">Retro terminal card reading AI systems that survive production</desc>
+  <defs>
+    <pattern id="grid" width="64" height="64" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <path d="M0 0h64v64" fill="none" stroke="#163324" stroke-width="2"/>
+    </pattern>
+    <pattern id="scan" width="4" height="4" patternUnits="userSpaceOnUse">
+      <path d="M0 3.5h1200" stroke="#8affb5" stroke-opacity=".08"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="#06100c"/>
+  <rect width="1200" height="630" fill="url(#grid)" opacity=".72"/>
+  <rect x="48" y="48" width="1104" height="534" fill="#091710" stroke="#28553d" stroke-width="2"/>
+  <circle cx="84" cy="84" r="7" fill="#8affb5"/>
+  <text x="104" y="91" fill="#eaffef" font-family="monospace" font-size="20" font-weight="700">JEFFREY.BUILD :: ONLINE</text>
+  <text x="82" y="180" fill="#8affb5" font-family="monospace" font-size="22">visitor@jeffrey:~$ cat identity.txt</text>
+  <text x="78" y="292" fill="#eaffef" font-family="Arial Black, Arial, sans-serif" font-size="74" font-weight="900" letter-spacing="-4">AI SYSTEMS THAT</text>
+  <text x="78" y="378" fill="#eaffef" font-family="Arial Black, Arial, sans-serif" font-size="74" font-weight="900" letter-spacing="-4">SURVIVE PRODUCTION.</text>
+  <rect x="959" y="316" width="36" height="62" fill="#8affb5"/>
+  <text x="82" y="472" fill="#79bd92" font-family="monospace" font-size="24">SENIOR AI PLATFORM ENGINEER · LISBON</text>
+  <text x="82" y="535" fill="#8affb5" font-family="monospace" font-size="20">€4M+ REVENUE · 1M+ USERS · 200K+ AI REQUESTS/DAY</text>
+  <rect width="1200" height="630" fill="url(#scan)"/>
+</svg>
