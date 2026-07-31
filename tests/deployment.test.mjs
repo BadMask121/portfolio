@@ -19,8 +19,10 @@ test('configures compression, security headers, caching, and health checks', asy
   assert.match(config, /gzip on/)
   assert.match(config, /Content-Security-Policy/)
   assert.match(config, /X-Content-Type-Options/)
-  assert.match(config, /max-age=31536000, immutable/)
-  assert.match(config, /max-age=0, must-revalidate/)
+  assert.match(config, /~\*\\\.\(\?:css\|js\|mjs\)\$ "public, max-age=0, must-revalidate"/)
+  assert.match(config, /~\*\\\.\(\?:svg\|ico\)\$ "public, max-age=31536000, immutable"/)
+  assert.match(config, /location ~ \\\.mjs\$/)
+  assert.match(config, /application\/javascript mjs/)
   assert.match(config, /location = \/healthz/)
 })
 
