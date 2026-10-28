@@ -1,81 +1,95 @@
 import assert from 'node:assert/strict'
 import { readFile } from 'node:fs/promises'
 import test from 'node:test'
+import worker, { SECURITY_HEADERS, cacheControlFor } from '../src/worker.mjs'
 
 const read = (path) => readFile(new URL(path, import.meta.url), 'utf8')
 
-test('www.jeffrey.build/<path>?<q> redirects 301 to https://jeffrey.build/<path>?<q>', async () => {
-  const workerCode = await read('../src/worker.mjs')
-  assert.match(workerCode, /www\.\$\{APEX\}/)
-  assert.match(workerCode, /Response\.redirect/)
+/** Stands in for the Workers static-asset binding: 404 for /missing, 200 otherwise. */
+const fakeEnv = {
+  ASSETS: {
+    async fetch(request) {
+      const { pathname } = new URL(request.url)
+      const missing = pathname === '/missing'
+      return new Response(missing ? 'not found' : `asset ${pathname}`, {
+        status: missing ? 404 : 200,
+        headers: { 'Content-Type': pathname.endsWith('.mjs') ? 'text/javascript' : 'text/html' },
+      })
+    },
+  },
+}
+
+const call = (url, init) => worker.fetch(new Request(url, init), fakeEnv)
+
+test('redirects www to the apex permanently, keeping path and query', async () => {
+  const res = await call('https://www.jeffrey.build/work?tab=2')
+  assert.equal(res.status, 301)
+  assert.equal(res.headers.get('Location'), 'https://jeffrey.build/work?tab=2')
 })
 
-test('/healthz returns 200 ok, text/plain, security headers', async () => {
-  const workerCode = await read('../src/worker.mjs')
-  assert.match(workerCode, /\/healthz/)
-  assert.match(workerCode, /text\/plain/)
-  assert.match(workerCode, /SECURITY_HEADERS/)
+test('answers /healthz with ok, uncached, with security headers', async () => {
+  const res = await call('https://jeffrey.build/healthz')
+  assert.equal(res.status, 200)
+  assert.equal(await res.text(), 'ok\n')
+  assert.match(res.headers.get('Content-Type'), /text\/plain/)
+  assert.equal(res.headers.get('Cache-Control'), 'no-store')
+  assert.equal(res.headers.get('X-Frame-Options'), 'DENY')
 })
 
-test('an asset response (fake env.ASSETS) gets every SECURITY_HEADERS entry', async () => {
-  const workerCode = await read('../src/worker.mjs')
-  const headers = ['Content-Security-Policy', 'Cross-Origin-Opener-Policy', 'Permissions-Policy', 'Referrer-Policy', 'X-Content-Type-Options', 'X-Frame-Options']
-  for (const header of headers) {
-    assert.match(workerCode, new RegExp(header))
+test('adds every security header to static files', async () => {
+  const res = await call('https://jeffrey.build/')
+  assert.equal(res.status, 200)
+  for (const [name, value] of Object.entries(SECURITY_HEADERS)) {
+    assert.equal(res.headers.get(name), value, name)
   }
+  assert.match(res.headers.get('Content-Security-Policy'), /default-src 'self'/)
+  assert.equal(res.headers.get('X-Content-Type-Options'), 'nosniff')
 })
 
-test('.css/.mjs/.html get public, max-age=0, must-revalidate', async () => {
-  const workerCode = await read('../src/worker.mjs')
-  assert.match(workerCode, /public, max-age=0, must-revalidate/)
-  assert.match(workerCode, /\.css/)
-  assert.match(workerCode, /\.mjs/)
-  assert.match(workerCode, /\.html/)
+test('icons are immutable; pages, styles and scripts revalidate', async () => {
+  for (const path of ['/favicon.svg', '/og-image.svg', '/favicon.ico']) {
+    const res = await call(`https://jeffrey.build${path}`)
+    assert.equal(res.headers.get('Cache-Control'), 'public, max-age=31536000, immutable', path)
+  }
+  for (const path of ['/', '/index.html', '/styles.css', '/main.mjs']) {
+    const res = await call(`https://jeffrey.build${path}`)
+    assert.equal(res.headers.get('Cache-Control'), 'public, max-age=0, must-revalidate', path)
+  }
+  assert.equal(cacheControlFor('/A.SVG'), 'public, max-age=31536000, immutable')
 })
 
-test('.svg/.ico get immutable cache control', async () => {
-  const workerCode = await read('../src/worker.mjs')
-  assert.match(workerCode, /public, max-age=31536000, immutable/)
-  assert.match(workerCode, /\.svg/)
-  assert.match(workerCode, /\.ico/)
+test('serves module scripts as JavaScript', async () => {
+  const res = await call('https://jeffrey.build/main.mjs?v=2')
+  assert.match(res.headers.get('Content-Type'), /^application\/javascript/)
 })
 
-test('.mjs gets Content-Type application/javascript', async () => {
-  const workerCode = await read('../src/worker.mjs')
-  assert.match(workerCode, /application\/javascript/)
-  assert.match(workerCode, /\.mjs/)
+test('keeps the asset status (a missing file stays 404)', async () => {
+  const res = await call('https://jeffrey.build/missing')
+  assert.equal(res.status, 404)
+  assert.equal(res.headers.get('X-Frame-Options'), 'DENY')
 })
 
-test('wrangler.jsonc has assets dir ./dist, run_worker_first: true, both custom domains, build command', async () => {
+test('wrangler.jsonc serves dist/, runs the Worker first and owns both domains', async () => {
   const config = await read('../wrangler.jsonc')
+  assert.match(config, /"main": "src\/worker\.mjs"/)
   assert.match(config, /"directory": "\.\/dist"/)
   assert.match(config, /"run_worker_first": true/)
-  assert.match(config, /jeffrey\.build/)
-  assert.match(config, /www\.jeffrey\.build/)
   assert.match(config, /"command": "npm run build"/)
+  assert.match(config, /"pattern": "jeffrey\.build", "custom_domain": true/)
+  assert.match(config, /"pattern": "www\.jeffrey\.build", "custom_domain": true/)
 })
 
-test('README documents npm test, npm run build, Cloudflare/wrangler deploy, jeffrey.build', async () => {
+test('documents local verification and the Cloudflare deployment', async () => {
   const readme = await read('../README.md')
   assert.match(readme, /npm test/)
   assert.match(readme, /npm run build/)
+  assert.match(readme, /npm run deploy/)
   assert.match(readme, /wrangler/)
   assert.match(readme, /jeffrey\.build/)
 })
 
-test('existing ?v=2 asset-versioning test still passes', async () => {
+test('versions browser assets to escape legacy immutable responses', async () => {
   const markup = await read('../site/index.html')
   assert.match(markup, /href="\/styles\.css\?v=2"/)
   assert.match(markup, /src="\/main\.mjs\?v=2"/)
-})
-
-// All 25 existing tests in the other files must still pass
-test('all existing tests pass', async () => {
-  const { test: runTest } = await import('node:test')
-  const testFiles = await import('node:fs/promises').then(fs => fs.readdir(new URL('../tests', import.meta.url)))
-  for (const file of testFiles) {
-    if (file.endsWith('.test.mjs')) {
-      await runTest(new URL(`../tests/${file}`, import.meta.url))
-    }
-  }
 })
