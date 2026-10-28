@@ -52,34 +52,67 @@ export const builds = [
     url: 'https://replikit.ai',
     linkLabel: 'Visit RepliKit',
   },
-  {
-    name: 'Member',
-    type: 'AI group assistant',
-    description:
-      'A WhatsApp group assistant that stores conversation context so members can search, summarize, ask questions, and surface highlights.',
-    tags: ['TypeScript', 'Vector search', 'GCP'],
-    url: 'https://github.com/BadMask121/member',
-    linkLabel: 'View Member on GitHub',
-  },
-  {
-    name: 'Prole',
-    type: 'Open-source macOS app',
-    description:
-      'Snip, annotate, and paste anywhere. A native utility built to remove friction from visual conversations with people and AI.',
-    tags: ['Rust', 'Tauri', 'Open source'],
-    url: 'https://prole.jeffrey.build',
-    linkLabel: 'Visit Prole',
-  },
-  {
-    name: 'AI Agents',
-    type: 'Agent systems',
-    description:
-      'Production automations for booking and email, music-library preparation, MCP mailbox access, and career workflows.',
-    tags: ['TypeScript', 'Rust', 'MCP', 'Docker'],
-    url: 'https://github.com/BadMask121/ai-agents',
-    linkLabel: 'View AI Agents on GitHub',
-  },
 ]
+
+export const sideProjects = {
+  intro: 'Personal tools and experiments, built for my own work.',
+  items: [
+    {
+      name: 'VoxSplit',
+      type: 'Mac audio tool',
+      description:
+        'Split lead vocals, backing harmonies and instrumentals offline on your Mac, inside your DAW as a VST3/AU plugin or in its own app.',
+      tags: ['Rust', 'ONNX Runtime', 'JUCE', 'SwiftUI'],
+      url: 'https://voxsplit.jeffrey.build',
+      linkLabel: 'Visit VoxSplit',
+    },
+    {
+      name: 'DJ Sync',
+      type: 'AI-connected Mac app',
+      description:
+        'Send a Spotify or YouTube link to ChatGPT or Claude and it lands in your Rekordbox library and playlists.',
+      tags: ['Rust', 'Swift', 'MCP', 'Cloudflare Workers'],
+      url: 'https://djsync.jeffrey.build',
+      linkLabel: 'Visit DJ Sync',
+    },
+    {
+      name: 'Prole',
+      type: 'Open-source macOS app',
+      description:
+        'Snip, annotate, and paste anywhere. A native utility built to remove friction from visual conversations with people and AI.',
+      tags: ['Rust', 'Tauri', 'Open source'],
+      url: 'https://prole.jeffrey.build',
+      linkLabel: 'Visit Prole',
+    },
+    {
+      name: 'Member',
+      type: 'AI group assistant',
+      description:
+        'A WhatsApp group assistant that stores conversation context so members can search, summarize, ask questions, and surface highlights.',
+      tags: ['TypeScript', 'Vector search', 'GCP'],
+      url: 'https://github.com/BadMask121/member',
+      linkLabel: 'View Member on GitHub',
+    },
+    {
+      name: 'AI Agents',
+      type: 'Agent systems',
+      description:
+        'The monorepo behind my agents and MCP servers: an email and booking agent, the mailbox connector, and DJ Sync\'s cloud queue.',
+      tags: ['TypeScript', 'Rust', 'MCP', 'Cloudflare Workers'],
+      url: 'https://github.com/BadMask121/ai-agents',
+      linkLabel: 'View AI Agents on GitHub',
+    },
+    {
+      name: 'mail-mcp',
+      type: 'ChatGPT connector',
+      description:
+        'An MCP server that lets ChatGPT read, send and manage a private mailbox over IMAP and SMTP, running on Cloudflare Workers.',
+      tags: ['TypeScript', 'MCP', 'Cloudflare Workers'],
+      url: 'https://github.com/BadMask121/ai-agents/tree/main/apps/mail-mcp',
+      linkLabel: 'View mail-mcp on GitHub',
+    },
+  ],
+}
 
 export const capabilities = [
   {

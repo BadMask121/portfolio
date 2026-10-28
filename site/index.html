@@ -160,28 +160,88 @@
               <div class="tags" aria-label="Technologies"><span>Systems architecture</span><span>Figma API</span><span>SaaS</span></div>
               <a class="project-link" href="https://replikit.ai" target="_blank" rel="noreferrer" aria-label="Visit RepliKit"></a>
             </article>
-            <article class="project" data-id="02">
-              <span class="type">AI group assistant</span>
-              <h3>Member</h3>
-              <p>A WhatsApp group assistant that stores conversation context so members can search, summarize, ask questions, and surface highlights.</p>
-              <div class="tags" aria-label="Technologies"><span>TypeScript</span><span>Vector search</span><span>GCP</span></div>
-              <a class="project-link" href="https://github.com/BadMask121/member" target="_blank" rel="noreferrer" aria-label="View Member on GitHub"></a>
-            </article>
-            <article class="project" data-id="03">
-              <span class="type">Open-source macOS app</span>
-              <h3>Prole</h3>
-              <p>Snip, annotate, and paste anywhere. A native utility built to remove friction from visual conversations with people and AI.</p>
-              <div class="tags" aria-label="Technologies"><span>Rust</span><span>Tauri</span><span>Open source</span></div>
-              <a class="project-link" href="https://prole.jeffrey.build" target="_blank" rel="noreferrer" aria-label="Visit Prole"></a>
-            </article>
-            <article class="project" data-id="04">
-              <span class="type">Agent systems</span>
-              <h3>AI Agents</h3>
-              <p>Production automations for booking and email, music-library preparation, MCP mailbox access, and career workflows.</p>
-              <div class="tags" aria-label="Technologies"><span>TypeScript</span><span>Rust</span><span>MCP</span><span>Docker</span></div>
-              <a class="project-link" href="https://github.com/BadMask121/ai-agents" target="_blank" rel="noreferrer" aria-label="View AI Agents on GitHub"></a>
-            </article>
           </div>
+          <div class="side-head">
+            <p class="eyebrow">~/SIDE-PROJECTS</p>
+            <div>
+              <h3 id="side-projects-title">Side projects.</h3>
+              <p>Personal tools and experiments, built for my own work.</p>
+            </div>
+          </div>
+          <ul class="side-projects" aria-labelledby="side-projects-title">
+            <li class="side-project">
+              <div class="side-name">
+                <h4>VoxSplit</h4>
+                <p class="side-type">Mac audio tool</p>
+              </div>
+              <div class="side-body">
+                <p>Split lead vocals, backing harmonies and instrumentals offline on your Mac, inside your DAW as a VST3/AU plugin or in its own app.</p>
+                <div class="tags" aria-label="Technologies"><span>Rust</span><span>ONNX Runtime</span><span>JUCE</span><span>SwiftUI</span></div>
+              </div>
+              <span class="side-arrow" aria-hidden="true">↗</span>
+              <a class="project-link" href="https://voxsplit.jeffrey.build" target="_blank" rel="noreferrer" aria-label="Visit VoxSplit"></a>
+            </li>
+            <li class="side-project">
+              <div class="side-name">
+                <h4>DJ Sync</h4>
+                <p class="side-type">AI-connected Mac app</p>
+              </div>
+              <div class="side-body">
+                <p>Send a Spotify or YouTube link to ChatGPT or Claude and it lands in your Rekordbox library and playlists.</p>
+                <div class="tags" aria-label="Technologies"><span>Rust</span><span>Swift</span><span>MCP</span><span>Cloudflare Workers</span></div>
+              </div>
+              <span class="side-arrow" aria-hidden="true">↗</span>
+              <a class="project-link" href="https://djsync.jeffrey.build" target="_blank" rel="noreferrer" aria-label="Visit DJ Sync"></a>
+            </li>
+            <li class="side-project">
+              <div class="side-name">
+                <h4>Prole</h4>
+                <p class="side-type">Open-source macOS app</p>
+              </div>
+              <div class="side-body">
+                <p>Snip, annotate, and paste anywhere. A native utility built to remove friction from visual conversations with people and AI.</p>
+                <div class="tags" aria-label="Technologies"><span>Rust</span><span>Tauri</span><span>Open source</span></div>
+              </div>
+              <span class="side-arrow" aria-hidden="true">↗</span>
+              <a class="project-link" href="https://prole.jeffrey.build" target="_blank" rel="noreferrer" aria-label="Visit Prole"></a>
+            </li>
+            <li class="side-project">
+              <div class="side-name">
+                <h4>Member</h4>
+                <p class="side-type">AI group assistant</p>
+              </div>
+              <div class="side-body">
+                <p>A WhatsApp group assistant that stores conversation context so members can search, summarize, ask questions, and surface highlights.</p>
+                <div class="tags" aria-label="Technologies"><span>TypeScript</span><span>Vector search</span><span>GCP</span></div>
+              </div>
+              <span class="side-arrow" aria-hidden="true">↗</span>
+              <a class="project-link" href="https://github.com/BadMask121/member" target="_blank" rel="noreferrer" aria-label="View Member on GitHub"></a>
+            </li>
+            <li class="side-project">
+              <div class="side-name">
+                <h4>AI Agents</h4>
+                <p class="side-type">Agent systems</p>
+              </div>
+              <div class="side-body">
+                <p>The monorepo behind my agents and MCP servers: an email and booking agent, the mailbox connector, and DJ Sync's cloud queue.</p>
+                <div class="tags" aria-label="Technologies"><span>TypeScript</span><span>Rust</span><span>MCP</span><span>Cloudflare Workers</span></div>
+              </div>
+              <span class="side-arrow" aria-hidden="true">↗</span>
+              <a class="project-link" href="https://github.com/BadMask121/ai-agents" target="_blank" rel="noreferrer" aria-label="View AI Agents on GitHub"></a>
+            </li>
+            <li class="side-project">
+              <div class="side-name">
+                <h4>mail-mcp</h4>
+                <p class="side-type">ChatGPT connector</p>
+              </div>
+              <div class="side-body">
+                <p>An MCP server that lets ChatGPT read, send and manage a private mailbox over IMAP and SMTP, running on Cloudflare Workers.</p>
+                <div class="tags" aria-label="Technologies"><span>TypeScript</span><span>MCP</span><span>Cloudflare Workers</span></div>
+              </div>
+              <span class="side-arrow" aria-hidden="true">↗</span>
+              <a class="project-link" href="https://github.com/BadMask121/ai-agents/tree/main/apps/mail-mcp" target="_blank" rel="noreferrer" aria-label="View mail-mcp on GitHub"></a>
+            </li>
+          </ul>
         </div>
       </section>
 

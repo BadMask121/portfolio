@@ -8,6 +8,7 @@ import {
   experience,
   metrics,
   profile,
+  sideProjects,
 } from '../site/content.mjs'
 
 const deepStrings = (value) => {
@@ -25,9 +26,18 @@ test('contains only the approved work experience in order', () => {
   assert.deepEqual(experience.map(({ company }) => company), ['RepliKit', 'Tappz GmbH', 'Receeve GmbH'])
 })
 
-test('contains only the approved selected builds in order', () => {
-  assert.deepEqual(builds.map(({ name }) => name), ['RepliKit', 'Member', 'Prole', 'AI Agents'])
-  assert.equal(builds.find(({ name }) => name === 'Member')?.url, 'https://github.com/BadMask121/member')
+test('features RepliKit as the only selected build', () => {
+  assert.deepEqual(builds.map(({ name }) => name), ['RepliKit'])
+  assert.equal(builds[0].url, 'https://replikit.ai')
+})
+
+test('lists personal work as side projects in order', () => {
+  assert.deepEqual(sideProjects.items.map(({ name }) => name), ['VoxSplit', 'DJ Sync', 'Prole', 'Member', 'AI Agents', 'mail-mcp'])
+  assert.equal(sideProjects.items.find(({ name }) => name === 'Member')?.url, 'https://github.com/BadMask121/member')
+  for (const project of sideProjects.items) {
+    assert.match(project.url, /^https:\/\//, project.name)
+    assert.ok(project.tags.length > 0, project.name)
+  }
 })
 
 test('contains the approved public contact channels and no phone number', () => {
@@ -38,6 +48,6 @@ test('contains the approved public contact channels and no phone number', () => 
 })
 
 test('uses standard hyphens instead of em dashes in visible copy', () => {
-  const visibleStrings = deepStrings({ metrics, experience, builds, capabilities, contact, profile })
+  const visibleStrings = deepStrings({ metrics, experience, builds, sideProjects, capabilities, contact, profile })
   assert.equal(visibleStrings.some((value) => value.includes('—')), false)
 })
