@@ -38,11 +38,26 @@ test('contains the approved crawlable build and contact links', () => {
     'https://github.com/BadMask121/member',
     'https://prole.jeffrey.build',
     'https://github.com/BadMask121/ai-agents',
+    'https://voxsplit.jeffrey.build',
+    'https://djsync.jeffrey.build',
+    'https://github.com/BadMask121/ai-agents/tree/main/apps/mail-mcp',
     'mailto:jeff.emakpor@gmail.com',
     'https://www.linkedin.com/in/jeffreyemakpor',
   ]) {
     assert.match(html, new RegExp(`href="${url.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`))
   }
+})
+
+test('renders every side project from content as a labelled row', async () => {
+  const { sideProjects } = await import('../site/content.mjs')
+  const rows = [...html.matchAll(/<li class="side-project">([\s\S]*?)<\/li>/g)].map((match) => match[1])
+  assert.equal(rows.length, sideProjects.items.length)
+  sideProjects.items.forEach((project, index) => {
+    assert.match(rows[index], new RegExp(`<h4>${project.name}</h4>`))
+    assert.ok(rows[index].includes(`href="${project.url}"`), project.name)
+    assert.ok(rows[index].includes(`aria-label="${project.linkLabel}"`), project.name)
+  })
+  assert.match(html, /<ul class="side-projects" aria-labelledby="side-projects-title">/)
 })
 
 test('excludes retired copy, phone data, and em dashes', () => {

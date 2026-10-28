@@ -540,6 +540,100 @@ h1 {
   outline-offset: -5px;
 }
 
+.project:only-child {
+  grid-column: 1 / -1;
+  min-height: 240px;
+}
+
+.side-head {
+  display: grid;
+  grid-template-columns: 210px 1fr;
+  margin: 72px 0 28px;
+  gap: 40px;
+}
+
+.side-head h3 {
+  margin: 0 0 10px;
+  color: var(--bright);
+  font-family: var(--display);
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  letter-spacing: -0.06em;
+}
+
+.side-head p:not(.eyebrow) {
+  margin: 0;
+  color: var(--muted);
+  font-family: var(--sans);
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.side-projects {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--line);
+  background: var(--line);
+  gap: 1px;
+  list-style: none;
+}
+
+.side-project {
+  position: relative;
+  display: grid;
+  grid-template-columns: 170px 1fr 24px;
+  padding: 24px 28px;
+  background: var(--bg);
+  gap: 28px;
+  transition: background-color 180ms ease;
+}
+
+.side-project:hover,
+.side-project:has(.project-link:focus-visible) {
+  background: var(--surface);
+}
+
+.side-project h4 {
+  margin: 0 0 7px;
+  color: var(--bright);
+  font-size: 1.06rem;
+  line-height: 1.35;
+}
+
+.side-type {
+  margin: 0;
+  color: var(--accent);
+  font-size: 0.625rem;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+.side-body p {
+  max-width: 62ch;
+  margin: 0;
+  color: var(--muted);
+  font-family: var(--sans);
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.side-body .tags {
+  margin-top: 14px;
+}
+
+.side-arrow {
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1;
+  transition: color 180ms ease, transform 180ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.side-project:hover .side-arrow,
+.side-project:has(.project-link:focus-visible) .side-arrow {
+  color: var(--accent);
+  transform: translate(2px, -2px);
+}
+
 .stack-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -754,6 +848,22 @@ h1 {
     grid-column: span 1;
   }
 
+  .side-head {
+    grid-template-columns: 1fr;
+    margin-top: 56px;
+    gap: 15px;
+  }
+
+  .side-project {
+    grid-template-columns: 1fr 24px;
+    gap: 14px;
+  }
+
+  .side-body {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
   .stack-grid {
     grid-template-columns: 1fr 1fr;
   }
@@ -859,7 +969,8 @@ h1 {
   .section-head h2,
   .section-head .eyebrow,
   .job,
-  .project {
+  .project,
+  .side-arrow {
     transform: none !important;
   }
 }
