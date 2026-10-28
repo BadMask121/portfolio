@@ -6,6 +6,7 @@ dist
 # Local tooling
 node_modules
 .cache
+.wrangler
 
 # Logs
 logs
