@@ -23,25 +23,26 @@ The development server opens the source site at `http://127.0.0.1:3000`. `npm ru
 - `site/parallax.mjs` contains the tested single-loop motion controller.
 - `tests/` checks copy, semantics, motion, SEO, and deployment behavior.
 
-## Container
+## Hosting (Cloudflare)
 
-Build and run the same image used in production:
+The site runs as the Cloudflare Worker `jeffrey-build` (`wrangler.jsonc`) on the custom domains `jeffrey.build` and `www.jeffrey.build`.
+
+- Static files are the build output in `dist/`.
+- `src/worker.mjs` runs first for every request. It adds the security headers (CSP, COOP, Permissions-Policy, Referrer-Policy, `nosniff`, `DENY` framing) and the cache rules: icons (`.svg`, `.ico`) are immutable and everything else revalidates (styles and scripts are versioned with `?v=`). It serves `.mjs` as JavaScript, answers `/healthz` with `ok`, and permanently redirects `www.jeffrey.build` to `https://jeffrey.build`, keeping the path and query.
+
+Deploy (needs `wrangler` logged in to the Cloudflare account):
 
 ```bash
-docker build -t jeffrey-build-portfolio .
-docker run --rm -p 8080:8080 jeffrey-build-portfolio
-curl http://127.0.0.1:8080/healthz
+npm test
+npm run deploy   # builds dist/ and runs wrangler deploy
 ```
 
-The runtime image uses unprivileged Nginx on port `8080`, serves compressed assets, and includes security and cache headers.
+Check a deploy:
 
-## Coolify deployment
+```bash
+curl -sI https://jeffrey.build/ | grep -iE '^(server|content-security-policy|cache-control)'
+curl -s -o /dev/null -w '%{http_code} %{redirect_url}\n' https://www.jeffrey.build/
+curl -s https://jeffrey.build/healthz
+```
 
-1. Create or update the Coolify application from `BadMask121/portfolio`.
-2. Select the repository `Dockerfile` as the build pack and expose port `8080`.
-3. Attach `jeffrey.build` and `www.jeffrey.build`.
-4. Enable automatic HTTPS and redirect HTTP to HTTPS.
-5. Redirect `www.jeffrey.build` to the apex `https://jeffrey.build` URL.
-6. Verify `/healthz`, the certificate, metadata, public links, both themes, and the mobile layout.
-
-The previous Git commit remains the rollback point. Deployment must not change unrelated `*.jeffrey.build` services.
+Roll back with `npx wrangler rollback` (previous Worker version). Deployment must not change unrelated `*.jeffrey.build` services.
